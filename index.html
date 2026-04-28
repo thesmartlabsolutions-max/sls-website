@@ -261,7 +261,7 @@
   </div>
 
   <!-- Mobile menu -->
-  <div x-show="mobileOpen" x-cloak x-transition class="lg:hidden px-4 pb-4 pt-1 flex flex-col gap-2">
+  <div x-show="mobileOpen" x-cloak x-transition class="lg:hidden px-4 pb-4 pt-1 flex flex-col gap-2 rounded-b-2xl border-t" :class="darkMode ? 'bg-[#080D1A] border-white/08' : 'bg-white border-brand/08'">
     <template x-for="link in navLinks" :key="link.id">
       <a
         :href="'#' + link.id"
