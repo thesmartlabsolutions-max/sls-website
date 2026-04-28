@@ -1,0 +1,1141 @@
+<!DOCTYPE html>
+<html lang="fr" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Smart Lab Solutions — Site web pour artisans en Belgique</title>
+  <meta name="description" content="Smart Lab Solutions crée des sites web professionnels pour artisans en Belgique (Liège, Bruxelles, Namur). Prise de RDV en ligne, SEO local, résultats concrets." />
+  <meta name="keywords" content="site web artisan belgique, création site web liège, site web artisan bruxelles, site web plombier électricien menuisier, SLS Smart Lab Solutions" />
+  <meta property="og:title" content="Smart Lab Solutions — Votre Présence Digitale" />
+  <meta property="og:description" content="Votre partenaire digital de confiance pour artisans. Analyze. Create. Grow." />
+  <meta property="og:url" content="https://thesmartlabsolutions.be" />
+  <link rel="canonical" href="https://thesmartlabsolutions.be" />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,700;1,9..40,400&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: { DEFAULT: '#1B35D4', light: '#2D4DE0', dark: '#1428B0', glow: 'rgba(27,53,212,0.4)' }
+          },
+          fontFamily: {
+            heading: ['Space Grotesk', 'sans-serif'],
+            body: ['DM Sans', 'sans-serif'],
+          },
+          keyframes: {
+            gradient: { '0%,100%': { backgroundPosition: '0% 50%' }, '50%': { backgroundPosition: '100% 50%' } },
+            float: { '0%,100%': { transform: 'translateY(0px)' }, '50%': { transform: 'translateY(-18px)' } },
+            fadeUp: { '0%': { opacity: '0', transform: 'translateY(32px)' }, '100%': { opacity: '1', transform: 'translateY(0)' } },
+            slideIn: { '0%': { opacity: '0', transform: 'translateX(-20px)' }, '100%': { opacity: '1', transform: 'translateX(0)' } },
+            pulse2: { '0%,100%': { boxShadow: '0 0 0 0 rgba(27,53,212,0.5)' }, '50%': { boxShadow: '0 0 0 16px rgba(27,53,212,0)' } },
+          },
+          animation: {
+            gradient: 'gradient 8s ease infinite',
+            float: 'float 6s ease-in-out infinite',
+            fadeUp: 'fadeUp 0.7s ease forwards',
+            slideIn: 'slideIn 0.5s ease forwards',
+            pulse2: 'pulse2 3s ease-in-out infinite',
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Alpine.js -->
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+  <style>
+    *, *::before, *::after { font-family: 'DM Sans', sans-serif; }
+    h1, h2, h3, h4, h5, .font-heading { font-family: 'Space Grotesk', sans-serif; }
+
+    /* Glassmorphism */
+    .glass {
+      background: rgba(255,255,255,0.05);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(255,255,255,0.12);
+    }
+    .glass-light {
+      background: rgba(255,255,255,0.82);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(27,53,212,0.18);
+    }
+
+    /* Hero gradient */
+    .hero-dark {
+      background:
+        radial-gradient(ellipse at 10% 70%, rgba(27,53,212,0.38) 0%, transparent 55%),
+        radial-gradient(ellipse at 90% 15%, rgba(45,78,224,0.22) 0%, transparent 50%),
+        radial-gradient(ellipse at 55% 100%, rgba(27,53,212,0.18) 0%, transparent 60%),
+        #080D1A;
+    }
+    .hero-light {
+      background:
+        radial-gradient(ellipse at 10% 70%, rgba(27,53,212,0.10) 0%, transparent 55%),
+        radial-gradient(ellipse at 90% 15%, rgba(45,78,224,0.07) 0%, transparent 50%),
+        #F0F4FF;
+    }
+
+    /* Dot grid overlay */
+    .dot-grid {
+      background-image: radial-gradient(rgba(255,255,255,0.055) 1px, transparent 1px);
+      background-size: 30px 30px;
+    }
+    .dot-grid-light {
+      background-image: radial-gradient(rgba(27,53,212,0.07) 1px, transparent 1px);
+      background-size: 30px 30px;
+    }
+
+    /* Gradient text */
+    .text-gradient {
+      background: linear-gradient(135deg, #60A5FA 0%, #1B35D4 40%, #60A5FA 100%);
+      background-size: 200% 200%;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: gradient 5s ease infinite;
+    }
+
+    /* Section transitions — 0.45s feels snappy but still elegant */
+    .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.45s ease, transform 0.45s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    /* Disable heavy animations on mobile & reduced-motion */
+    @media (max-width: 768px) {
+      .animate-float { animation: none !important; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .animate-float, .animate-gradient, .animate-pulse2, .text-gradient {
+        animation: none !important;
+      }
+      .reveal { opacity: 1 !important; transform: none !important; transition: none !important; }
+    }
+
+    /* Scrollbar */
+    ::-webkit-scrollbar { width: 5px; }
+    ::-webkit-scrollbar-track { background: #080D1A; }
+    ::-webkit-scrollbar-thumb { background: #1B35D4; border-radius: 3px; }
+
+    /* FAQ accordion */
+    .faq-body { max-height: 0; overflow: hidden; transition: max-height 0.35s ease, padding 0.35s ease; }
+    .faq-body.open { max-height: 400px; }
+
+    /* Step connector line */
+    .step-line::after {
+      content: '';
+      position: absolute;
+      top: 28px;
+      left: calc(50% + 28px);
+      width: calc(100% - 56px);
+      height: 2px;
+      background: linear-gradient(90deg, #1B35D4, rgba(27,53,212,0.2));
+    }
+
+    @keyframes fadeUp {
+      0% { opacity: 0; transform: translateY(20px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+    .hero-fade-in {
+      animation: fadeUp 0.6s ease both;
+    }
+
+    [x-cloak] { display: none !important; }
+
+    /* Form dark mode — force browser to respect colors */
+    .dark input, .dark textarea, .dark select {
+      color-scheme: dark;
+      background-color: #111827 !important;
+      color: #E2E8F7 !important;
+    }
+    .dark input::placeholder, .dark textarea::placeholder {
+      color: rgba(226,232,247,0.35) !important;
+    }
+    .dark select option {
+      background-color: #111827;
+      color: #E2E8F7;
+    }
+    .dark input:focus, .dark textarea:focus, .dark select:focus {
+      outline: none;
+      border-color: rgba(27,53,212,0.7) !important;
+    }
+  </style>
+</head>
+
+<body
+  x-data="sls()"
+  x-init="initApp()"
+  :class="darkMode ? 'dark' : ''"
+  class="transition-colors duration-300"
+>
+
+<!-- ===================== WRAPPER ===================== -->
+<div :class="darkMode ? 'bg-[#080D1A] text-[#E2E8F7]' : 'bg-[#F0F4FF] text-[#0F1629]'" class="min-h-screen">
+
+<!-- ===================== NAVBAR ===================== -->
+<nav
+  x-cloak
+  :class="scrolled ? (darkMode ? 'glass shadow-lg shadow-black/30' : 'glass-light shadow-lg shadow-brand/10') : 'bg-transparent'"
+  class="fixed top-3 left-4 right-4 z-50 rounded-2xl transition-all duration-300"
+>
+  <div class="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between gap-4">
+
+    <!-- Logo -->
+    <a href="#" class="flex items-center gap-3 cursor-pointer flex-shrink-0">
+      <!-- Replace src with your logo file path. Ex: src="./logo.png" -->
+      <div class="flex items-center gap-2">
+        <div class="w-9 h-9 bg-brand rounded-lg flex items-center justify-center shadow-lg shadow-brand/30">
+          <span class="font-heading font-bold text-white text-sm tracking-tight">SLS</span>
+        </div>
+        <div class="hidden sm:block">
+          <div class="font-heading font-semibold text-sm leading-none" :class="darkMode ? 'text-white' : 'text-[#0F1629]'">Smart Lab Solutions</div>
+          <div class="text-[10px] tracking-widest uppercase text-brand font-medium">Analyze · Create · Grow</div>
+        </div>
+      </div>
+    </a>
+
+    <!-- Desktop Nav -->
+    <div class="hidden lg:flex items-center gap-6">
+      <template x-for="link in navLinks" :key="link.id">
+        <a
+          :href="'#' + link.id"
+          x-text="t(link.key)"
+          class="text-sm font-medium transition-colors duration-200 cursor-pointer"
+          :class="darkMode ? 'text-white/70 hover:text-white' : 'text-slate-600 hover:text-[#0F1629]'"
+        ></a>
+      </template>
+    </div>
+
+    <!-- Right controls -->
+    <div class="flex items-center gap-2">
+
+      <!-- Lang toggle -->
+      <button
+        @click="toggleLang()"
+        class="h-8 px-3 rounded-lg text-xs font-heading font-semibold transition-all duration-200 cursor-pointer border"
+        :class="darkMode ? 'border-white/10 text-white/70 hover:text-white hover:border-white/30' : 'border-brand/20 text-brand hover:bg-brand/5'"
+      >
+        <span x-text="lang === 'fr' ? 'EN' : 'FR'"></span>
+      </button>
+
+      <!-- Dark mode toggle -->
+      <button
+        @click="toggleDark()"
+        class="w-9 h-9 rounded-xl flex items-center justify-center transition-all duration-200 cursor-pointer"
+        :class="darkMode ? 'bg-white/06 hover:bg-white/10 text-white/70' : 'bg-brand/08 hover:bg-brand/15 text-brand'"
+        :aria-label="darkMode ? 'Activer le mode clair' : 'Activer le mode sombre'"
+      >
+        <!-- Sun icon -->
+        <svg x-show="darkMode" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v2.25m6.364.386-1.591 1.591M21 12h-2.25m-.386 6.364-1.591-1.591M12 18.75V21m-4.773-4.227-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0Z" />
+        </svg>
+        <!-- Moon icon -->
+        <svg x-show="!darkMode" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M21.752 15.002A9.72 9.72 0 0 1 18 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 0 0 3 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 0 0 9.002-5.998Z" />
+        </svg>
+      </button>
+
+      <!-- CTA -->
+      <a
+        href="#contact"
+        x-text="t('nav_cta')"
+        class="hidden sm:inline-flex h-9 px-4 bg-brand hover:bg-brand-light text-white text-sm font-heading font-semibold rounded-xl items-center transition-all duration-200 cursor-pointer shadow-lg shadow-brand/25 hover:shadow-brand/40"
+      ></a>
+
+      <!-- Mobile menu button -->
+      <button @click="mobileOpen = !mobileOpen" class="lg:hidden w-9 h-9 rounded-xl flex items-center justify-center cursor-pointer" :class="darkMode ? 'bg-white/06' : 'bg-brand/08'">
+        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+          <path x-show="!mobileOpen" stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+          <path x-show="mobileOpen" stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- Mobile menu -->
+  <div x-show="mobileOpen" x-cloak x-transition class="lg:hidden px-4 pb-4 pt-1 flex flex-col gap-2">
+    <template x-for="link in navLinks" :key="link.id">
+      <a
+        :href="'#' + link.id"
+        x-text="t(link.key)"
+        @click="mobileOpen = false"
+        class="py-2.5 px-4 rounded-xl text-sm font-medium cursor-pointer transition-colors"
+        :class="darkMode ? 'text-white/80 hover:bg-white/06' : 'text-slate-700 hover:bg-brand/05'"
+      ></a>
+    </template>
+    <a href="#contact" x-text="t('nav_cta')" class="mt-1 py-2.5 px-4 bg-brand text-white text-sm font-heading font-semibold rounded-xl text-center cursor-pointer">
+    </a>
+  </div>
+</nav>
+
+<!-- ===================== HERO ===================== -->
+<section
+  id="accueil"
+  :class="darkMode ? 'hero-dark dot-grid' : 'hero-light dot-grid-light'"
+  class="relative min-h-screen flex items-center pt-24 pb-16 overflow-hidden"
+>
+  <!-- Decorative blobs -->
+  <div class="absolute top-1/4 -left-32 w-96 h-96 bg-brand/20 rounded-full blur-3xl pointer-events-none"></div>
+  <div class="absolute bottom-1/4 -right-32 w-80 h-80 bg-brand-light/15 rounded-full blur-3xl pointer-events-none"></div>
+
+  <div class="relative max-w-7xl mx-auto px-6 w-full">
+    <div class="grid lg:grid-cols-2 gap-16 items-center">
+
+      <!-- Left: Text -->
+      <div class="space-y-8">
+        <!-- Badge -->
+        <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full border text-sm font-medium hero-fade-in" style="animation-delay:0.05s"
+             :class="darkMode ? 'border-brand/30 bg-brand/10 text-brand-light' : 'border-brand/20 bg-brand/06 text-brand'">
+          <span class="w-2 h-2 bg-brand rounded-full animate-pulse2 inline-block"></span>
+          <span x-text="t('hero_badge')"></span>
+        </div>
+
+        <!-- Title -->
+        <h1 class="font-heading font-bold text-4xl sm:text-5xl xl:text-6xl leading-[1.08] tracking-tight hero-fade-in" style="animation-delay:0.15s">
+          <span x-html="t('hero_title')"></span>
+        </h1>
+
+        <!-- Sub -->
+        <p class="text-lg leading-relaxed max-w-xl hero-fade-in" style="animation-delay:0.25s"
+           :class="darkMode ? 'text-white/65' : 'text-slate-600'"
+           x-text="t('hero_sub')">
+        </p>
+
+        <!-- CTAs -->
+        <div class="flex flex-wrap gap-3 hero-fade-in" style="animation-delay:0.35s">
+          <a href="#contact"
+             x-text="t('hero_cta')"
+             class="inline-flex items-center gap-2 px-8 py-4 bg-brand hover:bg-brand-light text-white font-heading font-bold text-base rounded-xl transition-all duration-200 cursor-pointer shadow-2xl shadow-brand/40 hover:shadow-brand/60 hover:-translate-y-1">
+          </a>
+          <a href="#processus"
+             x-text="t('hero_cta2')"
+             class="inline-flex items-center gap-2 px-8 py-4 font-heading font-semibold text-base rounded-xl border-2 transition-all duration-200 cursor-pointer hover:-translate-y-1"
+             :class="darkMode ? 'border-white/20 text-white hover:border-white/40 hover:bg-white/06' : 'border-brand/30 text-brand hover:bg-brand/08'">
+          </a>
+        </div>
+
+        <!-- Stats row -->
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 pt-2 hero-fade-in" style="animation-delay:0.45s">
+          <template x-for="stat in stats" :key="stat.key">
+            <div class="space-y-0.5">
+              <div class="font-heading font-bold text-2xl text-brand" x-text="stat.value"></div>
+              <div class="text-xs leading-tight" :class="darkMode ? 'text-white/50' : 'text-slate-500'" x-text="t(stat.key)"></div>
+            </div>
+          </template>
+        </div>
+      </div>
+
+      <!-- Right: Visual card -->
+      <div class="relative hidden lg:block">
+        <!-- Main card -->
+        <div :class="darkMode ? 'glass' : 'glass-light'" class="rounded-3xl p-8 space-y-6 shadow-2xl">
+
+          <!-- Mock browser bar -->
+          <div class="flex items-center gap-2">
+            <div class="w-3 h-3 rounded-full bg-red-400"></div>
+            <div class="w-3 h-3 rounded-full bg-yellow-400"></div>
+            <div class="w-3 h-3 rounded-full bg-green-400"></div>
+            <div class="flex-1 h-6 rounded-lg ml-2 flex items-center px-3" :class="darkMode ? 'bg-white/05' : 'bg-slate-100'">
+              <span class="text-xs" :class="darkMode ? 'text-white/40' : 'text-slate-400'">thesmartlabsolutions.be</span>
+            </div>
+          </div>
+
+          <!-- Mock website content -->
+          <div class="space-y-3">
+            <div class="h-4 rounded-full w-3/4 bg-brand/20"></div>
+            <div class="h-3 rounded-full w-full" :class="darkMode ? 'bg-white/06' : 'bg-slate-100'"></div>
+            <div class="h-3 rounded-full w-5/6" :class="darkMode ? 'bg-white/06' : 'bg-slate-100'"></div>
+            <div class="grid grid-cols-3 gap-2 pt-2">
+              <div class="h-20 rounded-xl" :class="darkMode ? 'bg-white/05' : 'bg-slate-100'"></div>
+              <div class="h-20 rounded-xl bg-brand/10"></div>
+              <div class="h-20 rounded-xl" :class="darkMode ? 'bg-white/05' : 'bg-slate-100'"></div>
+            </div>
+            <div class="h-9 rounded-xl bg-brand/90 w-1/2 flex items-center justify-center">
+              <div class="h-2 rounded-full bg-white/50 w-16"></div>
+            </div>
+          </div>
+
+          <!-- Stats inside card -->
+          <div class="grid grid-cols-3 gap-2 pt-2">
+            <div class="rounded-xl p-3 text-center" :class="darkMode ? 'bg-white/04' : 'bg-slate-50'">
+              <div class="font-heading font-bold text-brand text-sm">+120%</div>
+              <div class="text-[10px] mt-0.5" :class="darkMode ? 'text-white/40' : 'text-slate-400'">Visibilité</div>
+            </div>
+            <div class="rounded-xl p-3 text-center bg-brand/10">
+              <div class="font-heading font-bold text-brand text-sm">14j</div>
+              <div class="text-[10px] mt-0.5 text-brand/70">Livraison</div>
+            </div>
+            <div class="rounded-xl p-3 text-center" :class="darkMode ? 'bg-white/04' : 'bg-slate-50'">
+              <div class="font-heading font-bold text-brand text-sm">100%</div>
+              <div class="text-[10px] mt-0.5" :class="darkMode ? 'text-white/40' : 'text-slate-400'">Satisfait</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Floating badges -->
+        <div :class="darkMode ? 'glass' : 'glass-light'" class="absolute -top-4 -right-4 rounded-2xl px-4 py-2.5 shadow-xl">
+          <div class="flex items-center gap-2">
+            <div class="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+            <span class="font-heading font-semibold text-xs" :class="darkMode ? 'text-white' : 'text-[#0F1629]'" x-text="t('hero_live')"></span>
+          </div>
+        </div>
+        <div :class="darkMode ? 'glass' : 'glass-light'" class="absolute -bottom-4 -left-4 rounded-2xl px-4 py-2.5 shadow-xl">
+          <div class="flex items-center gap-2">
+            <svg class="w-4 h-4 text-brand" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <span class="font-heading font-semibold text-xs" :class="darkMode ? 'text-white' : 'text-[#0F1629]'">5.0 / 5</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scroll indicator -->
+  <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 animate-bounce opacity-40">
+    <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
+    </svg>
+  </div>
+</section>
+
+<!-- ===================== PROBLÈMES ===================== -->
+<section id="problemes" class="py-24 px-6">
+  <div class="max-w-7xl mx-auto">
+    <div class="text-center max-w-2xl mx-auto mb-16 reveal">
+      <div class="inline-block px-4 py-1.5 rounded-full text-xs font-heading font-semibold tracking-widest uppercase mb-4 bg-red-500/10 text-red-400 border border-red-500/20" x-text="t('prob_tag')"></div>
+      <h2 class="font-heading font-bold text-3xl sm:text-4xl leading-tight mb-4" x-text="t('prob_title')"></h2>
+      <p class="text-base leading-relaxed" :class="darkMode ? 'text-white/70' : 'text-slate-500'" x-text="t('prob_sub')"></p>
+    </div>
+
+    <div class="grid md:grid-cols-3 gap-6 reveal">
+      <template x-for="(prob, i) in problems" :key="i">
+        <div
+          :class="darkMode ? 'glass hover:border-white/15' : 'glass-light hover:border-brand/25'"
+          class="rounded-2xl p-6 transition-all duration-300 hover:-translate-y-1"
+        >
+          <div class="w-12 h-12 rounded-xl bg-red-500/10 border border-red-500/20 flex items-center justify-center mb-4">
+            <svg class="w-6 h-6 text-red-400" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" :d="prob.icon" />
+            </svg>
+          </div>
+          <h3 class="font-heading font-semibold text-lg mb-2" x-text="t(prob.titleKey)"></h3>
+          <p class="text-sm leading-relaxed" :class="darkMode ? 'text-white/55' : 'text-slate-500'" x-text="t(prob.descKey)"></p>
+        </div>
+      </template>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== SOLUTION ===================== -->
+<section id="solution" class="py-20 px-6">
+  <div class="max-w-7xl mx-auto">
+    <div :class="darkMode ? 'glass' : 'glass-light'" class="rounded-3xl p-8 sm:p-12 lg:p-16 relative overflow-hidden reveal">
+      <!-- BG accent -->
+      <div class="absolute -right-20 -top-20 w-80 h-80 bg-brand/15 rounded-full blur-3xl pointer-events-none"></div>
+
+      <div class="relative grid lg:grid-cols-2 gap-12 items-center">
+        <div>
+          <div class="inline-block px-4 py-1.5 rounded-full text-xs font-heading font-semibold tracking-widest uppercase mb-6 bg-brand/15 text-brand border border-brand/20" x-text="t('sol_tag')"></div>
+          <h2 class="font-heading font-bold text-3xl sm:text-4xl leading-tight mb-6" x-html="t('sol_title')"></h2>
+          <p class="text-base leading-relaxed mb-8" :class="darkMode ? 'text-white/65' : 'text-slate-600'" x-text="t('sol_sub')"></p>
+          <a href="#contact" x-text="t('sol_cta')"
+             class="inline-flex items-center gap-2 px-6 py-3.5 bg-brand hover:bg-brand-light text-white font-heading font-semibold rounded-xl transition-all duration-200 cursor-pointer shadow-xl shadow-brand/25 hover:-translate-y-0.5">
+          </a>
+        </div>
+        <div class="grid grid-cols-2 gap-4">
+          <template x-for="(feature, i) in solutionFeatures" :key="i">
+            <div :class="darkMode ? 'bg-white/04 border border-white/06' : 'bg-white/80 border border-brand/08'" class="rounded-xl p-4">
+              <div class="w-8 h-8 rounded-lg bg-brand/15 flex items-center justify-center mb-3">
+                <svg class="w-4 h-4 text-brand" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" :d="feature.icon" />
+                </svg>
+              </div>
+              <div class="font-heading font-semibold text-sm mb-1" x-text="t(feature.titleKey)"></div>
+              <div class="text-xs leading-relaxed" :class="darkMode ? 'text-white/45' : 'text-slate-500'" x-text="t(feature.descKey)"></div>
+            </div>
+          </template>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== SERVICES ===================== -->
+<section id="services" class="py-24 px-6">
+  <div class="max-w-7xl mx-auto">
+    <div class="text-center max-w-2xl mx-auto mb-16 reveal">
+      <div class="inline-block px-4 py-1.5 rounded-full text-xs font-heading font-semibold tracking-widest uppercase mb-4 bg-brand/10 text-brand border border-brand/20" x-text="t('serv_tag')"></div>
+      <h2 class="font-heading font-bold text-3xl sm:text-4xl leading-tight mb-4" x-text="t('serv_title')"></h2>
+      <p class="text-base leading-relaxed" :class="darkMode ? 'text-white/70' : 'text-slate-500'" x-text="t('serv_sub')"></p>
+    </div>
+
+    <div class="grid md:grid-cols-3 gap-6 reveal">
+      <template x-for="(serv, i) in services" :key="i">
+        <div
+          :class="[
+            darkMode ? 'glass hover:border-brand/30' : 'glass-light hover:border-brand/30',
+            i === 1 ? 'ring-2 ring-brand/40' : ''
+          ]"
+          class="rounded-2xl p-6 transition-all duration-300 hover:-translate-y-2 relative"
+        >
+          <!-- Popular badge -->
+          <div x-show="i === 1" class="absolute -top-3 left-1/2 -translate-x-1/2 px-4 py-1 bg-brand text-white text-xs font-heading font-semibold rounded-full shadow-lg shadow-brand/30" x-text="t('serv_popular')"></div>
+          <!-- Coming soon badge -->
+          <div x-show="i === 2" class="absolute -top-3 left-1/2 -translate-x-1/2 px-4 py-1 bg-amber-500 text-white text-xs font-heading font-semibold rounded-full shadow-lg shadow-amber-500/30" x-text="t('serv_soon')"></div>
+
+          <div class="w-12 h-12 rounded-xl bg-brand/15 border border-brand/20 flex items-center justify-center mb-5 mt-2">
+            <svg class="w-6 h-6 text-brand" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" :d="serv.icon" />
+            </svg>
+          </div>
+
+          <h3 class="font-heading font-bold text-xl mb-2" x-text="t(serv.titleKey)"></h3>
+          <p class="text-sm leading-relaxed mb-5" :class="darkMode ? 'text-white/55' : 'text-slate-500'" x-text="t(serv.descKey)"></p>
+
+          <ul class="space-y-2 mb-6">
+            <template x-for="feat in serv.features" :key="feat">
+              <li class="flex items-center gap-2 text-sm">
+                <svg class="w-4 h-4 text-brand flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5" />
+                </svg>
+                <span :class="darkMode ? 'text-white/70' : 'text-slate-600'" x-text="t(feat)"></span>
+              </li>
+            </template>
+          </ul>
+
+          <a href="#contact" x-text="i === 2 ? t('serv_waitlist') : t('serv_cta')"
+             :class="i === 1 ? 'bg-brand hover:bg-brand-light text-white shadow-lg shadow-brand/25' : (darkMode ? 'border border-white/15 text-white/80 hover:border-brand/40 hover:text-brand' : 'border border-brand/20 text-brand hover:bg-brand/05')"
+             class="block text-center py-2.5 rounded-xl text-sm font-heading font-semibold transition-all duration-200 cursor-pointer">
+          </a>
+        </div>
+      </template>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== PROCESSUS ===================== -->
+<section id="processus" class="py-24 px-6" :class="darkMode ? 'bg-black/20' : 'bg-brand/03'">
+  <div class="max-w-7xl mx-auto">
+    <div class="text-center max-w-2xl mx-auto mb-16 reveal">
+      <div class="inline-block px-4 py-1.5 rounded-full text-xs font-heading font-semibold tracking-widest uppercase mb-4 bg-brand/10 text-brand border border-brand/20" x-text="t('proc_tag')"></div>
+      <h2 class="font-heading font-bold text-3xl sm:text-4xl leading-tight mb-4" x-text="t('proc_title')"></h2>
+      <p class="text-base leading-relaxed" :class="darkMode ? 'text-white/70' : 'text-slate-500'" x-text="t('proc_sub')"></p>
+    </div>
+
+    <div class="grid md:grid-cols-3 gap-8 reveal">
+      <template x-for="(step, i) in process" :key="i">
+        <div class="relative text-center">
+          <!-- Connector line (not on last) -->
+          <div x-show="i < 2" class="hidden md:block absolute top-7 left-[calc(50%+44px)] right-0 h-0.5 bg-gradient-to-r from-brand/50 to-transparent"></div>
+
+          <!-- Step circle -->
+          <div class="relative inline-flex w-14 h-14 rounded-2xl bg-brand items-center justify-center mb-6 shadow-xl shadow-brand/30">
+            <svg class="w-6 h-6 text-white" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" :d="step.icon" />
+            </svg>
+            <div class="absolute -top-2 -right-2 w-6 h-6 rounded-full bg-[#080D1A] border-2 border-brand flex items-center justify-center">
+              <span class="text-brand text-xs font-heading font-bold" x-text="i + 1"></span>
+            </div>
+          </div>
+
+          <!-- Step label (matches logo tagline) -->
+          <div class="font-heading font-bold text-xl tracking-wide mb-2 text-gradient uppercase" x-text="t(step.labelKey)"></div>
+          <h3 class="font-heading font-semibold text-lg mb-3" x-text="t(step.titleKey)"></h3>
+          <p class="text-sm leading-relaxed" :class="darkMode ? 'text-white/55' : 'text-slate-500'" x-text="t(step.descKey)"></p>
+        </div>
+      </template>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== FAQ ===================== -->
+<section id="faq" class="py-24 px-6" :class="darkMode ? 'bg-black/20' : 'bg-brand/03'">
+  <div class="max-w-3xl mx-auto">
+    <div class="text-center mb-16 reveal">
+      <div class="inline-block px-4 py-1.5 rounded-full text-xs font-heading font-semibold tracking-widest uppercase mb-4 bg-brand/10 text-brand border border-brand/20" x-text="t('faq_tag')"></div>
+      <h2 class="font-heading font-bold text-3xl sm:text-4xl leading-tight mb-4" x-text="t('faq_title')"></h2>
+      <p class="text-base leading-relaxed" :class="darkMode ? 'text-white/70' : 'text-slate-500'" x-text="t('faq_sub')"></p>
+    </div>
+
+    <div class="space-y-3 reveal">
+      <template x-for="(faq, i) in faqs" :key="i">
+        <div :class="darkMode ? 'glass' : 'glass-light'" class="rounded-2xl overflow-hidden transition-all duration-200">
+          <button
+            @click="openFaq === i ? openFaq = null : openFaq = i"
+            class="w-full flex items-center justify-between gap-4 px-5 py-4 text-left cursor-pointer"
+          >
+            <span class="font-heading font-semibold text-base" x-text="t(faq.qKey)"></span>
+            <svg class="w-5 h-5 flex-shrink-0 text-brand transition-transform duration-300" :class="openFaq === i ? 'rotate-45' : ''" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+            </svg>
+          </button>
+          <div :class="openFaq === i ? 'faq-body open' : 'faq-body'">
+            <div class="px-5 pb-5">
+              <p class="text-sm leading-relaxed" :class="darkMode ? 'text-white/70' : 'text-slate-500'" x-text="t(faq.aKey)"></p>
+            </div>
+          </div>
+        </div>
+      </template>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== CONTACT ===================== -->
+<section id="contact" class="py-24 px-6">
+  <div class="max-w-7xl mx-auto">
+    <div class="grid lg:grid-cols-2 gap-12 items-start">
+
+      <!-- Left: Info -->
+      <div class="reveal">
+        <div class="inline-block px-4 py-1.5 rounded-full text-xs font-heading font-semibold tracking-widest uppercase mb-6 bg-brand/10 text-brand border border-brand/20" x-text="t('contact_tag')"></div>
+        <h2 class="font-heading font-bold text-3xl sm:text-4xl leading-tight mb-4" x-text="t('contact_title')"></h2>
+        <p class="text-base leading-relaxed mb-8" :class="darkMode ? 'text-white/70' : 'text-slate-500'" x-text="t('contact_sub')"></p>
+
+        <!-- Contact info -->
+        <div class="space-y-4 mb-8">
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-xl bg-brand/15 flex items-center justify-center flex-shrink-0">
+              <svg class="w-5 h-5 text-brand" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25m19.5 0v.243a2.25 2.25 0 0 1-1.07 1.916l-7.5 4.615a2.25 2.25 0 0 1-2.36 0L3.32 8.91a2.25 2.25 0 0 1-1.07-1.916V6.75" />
+              </svg>
+            </div>
+            <a href="mailto:thesmartlabsolutions@gmail.com" class="text-sm hover:text-brand transition-colors cursor-pointer">thesmartlabsolutions@gmail.com</a>
+          </div>
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-xl bg-brand/15 flex items-center justify-center flex-shrink-0">
+              <svg class="w-5 h-5 text-brand" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z" />
+              </svg>
+            </div>
+            <span class="text-sm" :class="darkMode ? 'text-white/70' : 'text-slate-500'">Belgique — Liège / Bruxelles / Namur</span>
+          </div>
+        </div>
+
+        <!-- Calendly CTA -->
+        <div :class="darkMode ? 'glass' : 'glass-light'" class="rounded-2xl p-5">
+          <div class="font-heading font-semibold mb-1" x-text="t('contact_rdv_title')"></div>
+          <p class="text-sm mb-4" :class="darkMode ? 'text-white/55' : 'text-slate-500'" x-text="t('contact_rdv_sub')"></p>
+          <!-- Replace href with your Calendly link -->
+          <a href="https://calendly.com/thesmartlabsolutions" target="_blank" rel="noopener"
+             class="inline-flex items-center gap-2 px-5 py-2.5 bg-brand hover:bg-brand-light text-white font-heading font-semibold text-sm rounded-xl transition-all duration-200 cursor-pointer shadow-lg shadow-brand/25" x-text="t('contact_rdv_cta')">
+          </a>
+        </div>
+
+        <!-- Newsletter -->
+        <div class="mt-6 p-5 rounded-2xl border" :class="darkMode ? 'border-white/08 bg-white/02' : 'border-brand/10 bg-brand/03'">
+          <div class="font-heading font-semibold mb-1" x-text="t('newsletter_title')"></div>
+          <p class="text-sm mb-3" :class="darkMode ? 'text-white/50' : 'text-slate-500'" x-text="t('newsletter_sub')"></p>
+          <div x-show="!newsletterSent && !newsletterLoading" class="space-y-2">
+            <div class="flex gap-2">
+              <input
+                type="email"
+                x-model="newsletterEmail"
+                :placeholder="t('newsletter_placeholder')"
+                class="flex-1 h-10 px-3 rounded-xl text-sm border outline-none transition-colors"
+                :class="darkMode ? 'bg-white/05 border-white/10 text-white placeholder-white/30 focus:border-brand/50' : 'bg-white border-slate-200 text-slate-700 placeholder-slate-400 focus:border-brand/40'"
+                @keydown.enter="subscribeNewsletter()"
+              />
+              <button @click="subscribeNewsletter()" :disabled="!newsletterConsent" class="h-10 px-4 bg-brand hover:bg-brand-light disabled:opacity-50 disabled:cursor-not-allowed text-white text-sm font-heading font-semibold rounded-xl transition-all duration-200 cursor-pointer" x-text="t('newsletter_cta')"></button>
+            </div>
+            <label class="flex items-start gap-2 cursor-pointer">
+              <input type="checkbox" x-model="newsletterConsent" class="mt-0.5 w-3.5 h-3.5 accent-brand flex-shrink-0 cursor-pointer" />
+              <span class="text-xs leading-relaxed" :class="darkMode ? 'text-white/45' : 'text-slate-400'">
+                <span x-text="t('newsletter_consent_text')"></span>
+                <a href="politique-confidentialite.html" class="underline text-brand hover:text-brand-light ml-1" x-text="t('newsletter_consent_link')"></a>
+              </span>
+            </label>
+          </div>
+          <div x-show="newsletterLoading" class="text-sm text-brand font-semibold py-2">⏳ Envoi...</div>
+          <div x-show="newsletterSent" class="text-sm font-semibold py-2" :class="darkMode ? 'text-green-400' : 'text-green-600'" x-text="t('newsletter_ok')"></div>
+          <div x-show="newsletterError" class="text-sm text-red-400 mt-1" x-text="t('newsletter_err')"></div>
+        </div>
+      </div>
+
+      <!-- Right: Form -->
+      <div :class="darkMode ? 'glass' : 'glass-light'" class="rounded-3xl p-6 sm:p-8 reveal">
+        <div x-show="!formSent">
+          <!-- Netlify form — add data-netlify="true" for Netlify deployment -->
+          <form @submit.prevent="submitForm()" class="space-y-4">
+            <div class="grid sm:grid-cols-2 gap-4">
+              <div>
+                <label class="block text-xs font-heading font-semibold mb-1.5 uppercase tracking-wide" :class="darkMode ? 'text-white/50' : 'text-slate-500'" x-text="t('contact_name')"></label>
+                <input
+                  type="text" name="name" x-model="formData.name" required
+                  class="w-full h-11 px-4 rounded-xl text-sm border outline-none transition-colors"
+                  :class="darkMode ? 'bg-white/05 border-white/10 text-white placeholder-white/20 focus:border-brand/60' : 'bg-white border-slate-200 text-slate-700 focus:border-brand/50'"
+                />
+              </div>
+              <div>
+                <label class="block text-xs font-heading font-semibold mb-1.5 uppercase tracking-wide" :class="darkMode ? 'text-white/50' : 'text-slate-500'" x-text="t('contact_trade')"></label>
+                <input
+                  type="text" name="metier" x-model="formData.trade" required
+                  class="w-full h-11 px-4 rounded-xl text-sm border outline-none transition-colors"
+                  :class="darkMode ? 'bg-white/05 border-white/10 text-white placeholder-white/20 focus:border-brand/60' : 'bg-white border-slate-200 text-slate-700 focus:border-brand/50'"
+                />
+              </div>
+            </div>
+            <div class="grid sm:grid-cols-2 gap-4">
+              <div>
+                <label class="block text-xs font-heading font-semibold mb-1.5 uppercase tracking-wide" :class="darkMode ? 'text-white/50' : 'text-slate-500'" x-text="t('contact_email')"></label>
+                <input
+                  type="email" name="email" x-model="formData.email" required
+                  class="w-full h-11 px-4 rounded-xl text-sm border outline-none transition-colors"
+                  :class="darkMode ? 'bg-white/05 border-white/10 text-white placeholder-white/20 focus:border-brand/60' : 'bg-white border-slate-200 text-slate-700 focus:border-brand/50'"
+                />
+              </div>
+              <div>
+                <label class="block text-xs font-heading font-semibold mb-1.5 uppercase tracking-wide" :class="darkMode ? 'text-white/50' : 'text-slate-500'" x-text="t('contact_phone')"></label>
+                <input
+                  type="tel" name="telephone" x-model="formData.phone"
+                  class="w-full h-11 px-4 rounded-xl text-sm border outline-none transition-colors"
+                  :class="darkMode ? 'bg-white/05 border-white/10 text-white placeholder-white/20 focus:border-brand/60' : 'bg-white border-slate-200 text-slate-700 focus:border-brand/50'"
+                />
+              </div>
+            </div>
+            <div>
+              <label class="block text-xs font-heading font-semibold mb-1.5 uppercase tracking-wide" :class="darkMode ? 'text-white/50' : 'text-slate-500'" x-text="t('contact_service')"></label>
+              <select
+                name="service" x-model="formData.service"
+                class="w-full h-11 px-4 rounded-xl text-sm border outline-none transition-colors cursor-pointer"
+                :class="darkMode ? 'bg-white/05 border-white/10 text-white focus:border-brand/60' : 'bg-white border-slate-200 text-slate-700 focus:border-brand/50'"
+              >
+                <option value="" x-text="t('contact_service_placeholder')"></option>
+                <option value="Site Web Professionnel" x-text="t('serv1_title')"></option>
+                <option value="Pack Outils Intégrés" x-text="t('serv2_title')"></option>
+                <option value="Visibilité Locale SEO" x-text="t('serv3_title')"></option>
+                <option value="Tout le pack" x-text="t('contact_service_all')"></option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-xs font-heading font-semibold mb-1.5 uppercase tracking-wide" :class="darkMode ? 'text-white/50' : 'text-slate-500'" x-text="t('contact_message')"></label>
+              <textarea
+                name="message" x-model="formData.message" rows="4"
+                class="w-full px-4 py-3 rounded-xl text-sm border outline-none transition-colors resize-none"
+                :class="darkMode ? 'bg-white/05 border-white/10 text-white placeholder-white/20 focus:border-brand/60' : 'bg-white border-slate-200 text-slate-700 focus:border-brand/50'"
+              ></textarea>
+            </div>
+            <!-- RGPD consent checkbox -->
+            <label class="flex items-start gap-3 cursor-pointer">
+              <input type="checkbox" x-model="formConsent" class="mt-0.5 w-4 h-4 accent-brand flex-shrink-0 cursor-pointer" />
+              <span class="text-xs leading-relaxed" :class="darkMode ? 'text-white/50' : 'text-slate-500'">
+                <span x-text="t('contact_consent_text')"></span>
+                <a href="politique-confidentialite.html" class="underline text-brand hover:text-brand-light ml-1" x-text="t('contact_consent_link')"></a>
+              </span>
+            </label>
+            <button
+              type="submit" :disabled="formLoading || !formConsent"
+              x-text="formLoading ? t('contact_sending') : t('contact_send')"
+              class="w-full h-12 bg-brand hover:bg-brand-light disabled:opacity-60 disabled:cursor-not-allowed text-white font-heading font-semibold rounded-xl transition-all duration-200 cursor-pointer shadow-xl shadow-brand/25 hover:shadow-brand/40 hover:-translate-y-0.5"
+            ></button>
+            <!-- Error message -->
+            <p x-show="formError" x-cloak class="text-xs text-center text-red-400" x-text="t('contact_error')"></p>
+          </form>
+        </div>
+
+        <!-- Success state -->
+        <div x-show="formSent" x-cloak class="flex flex-col items-center justify-center py-12 text-center gap-4">
+          <div class="w-16 h-16 rounded-full bg-green-500/15 border border-green-500/30 flex items-center justify-center">
+            <svg class="w-8 h-8 text-green-400" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5" />
+            </svg>
+          </div>
+          <h3 class="font-heading font-bold text-xl" x-text="t('contact_sent_title')"></h3>
+          <p class="text-sm" :class="darkMode ? 'text-white/55' : 'text-slate-500'" x-text="t('contact_sent_sub')"></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== FOOTER ===================== -->
+<footer :class="darkMode ? 'bg-black/40 border-t border-white/06' : 'bg-white border-t border-brand/08'" class="py-12 px-6">
+  <div class="max-w-7xl mx-auto">
+    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-8 mb-10">
+
+      <!-- Brand -->
+      <div class="lg:col-span-2">
+        <div class="flex items-center gap-2 mb-4">
+          <div class="w-9 h-9 bg-brand rounded-lg flex items-center justify-center shadow-lg shadow-brand/30">
+            <span class="font-heading font-bold text-white text-sm">SLS</span>
+          </div>
+          <div>
+            <div class="font-heading font-semibold text-sm" :class="darkMode ? 'text-white' : 'text-[#0F1629]'">Smart Lab Solutions</div>
+            <div class="text-[10px] tracking-widest uppercase text-brand font-medium">Analyze · Create · Grow</div>
+          </div>
+        </div>
+        <p class="text-sm leading-relaxed max-w-xs" :class="darkMode ? 'text-white/50' : 'text-slate-500'" x-text="t('footer_desc')"></p>
+      </div>
+
+      <!-- Quick links -->
+      <div>
+        <div class="font-heading font-semibold text-sm mb-4 uppercase tracking-wide" :class="darkMode ? 'text-white/70' : 'text-slate-600'" x-text="t('footer_links')"></div>
+        <ul class="space-y-2">
+          <template x-for="link in navLinks" :key="link.id">
+            <li>
+              <a :href="'#' + link.id" x-text="t(link.key)"
+                 class="text-sm transition-colors cursor-pointer"
+                 :class="darkMode ? 'text-white/45 hover:text-white' : 'text-slate-500 hover:text-brand'"></a>
+            </li>
+          </template>
+        </ul>
+      </div>
+
+      <!-- Legal -->
+      <div>
+        <div class="font-heading font-semibold text-sm mb-4 uppercase tracking-wide" :class="darkMode ? 'text-white/70' : 'text-slate-600'" x-text="t('footer_legal_title')"></div>
+        <ul class="space-y-2">
+          <li><a href="mentions-legales.html" class="text-sm transition-colors cursor-pointer" :class="darkMode ? 'text-white/45 hover:text-white' : 'text-slate-500 hover:text-brand'" x-text="t('footer_mentions')"></a></li>
+          <li><a href="politique-confidentialite.html" class="text-sm transition-colors cursor-pointer" :class="darkMode ? 'text-white/45 hover:text-white' : 'text-slate-500 hover:text-brand'" x-text="t('footer_privacy')"></a></li>
+          <li><a href="mailto:thesmartlabsolutions@gmail.com" class="text-sm transition-colors cursor-pointer" :class="darkMode ? 'text-white/45 hover:text-white' : 'text-slate-500 hover:text-brand'">thesmartlabsolutions@gmail.com</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="pt-6 border-t flex flex-col sm:flex-row items-center justify-between gap-3" :class="darkMode ? 'border-white/06' : 'border-slate-100'">
+      <p class="text-xs" :class="darkMode ? 'text-white/30' : 'text-slate-400'" x-text="t('footer_copy')"></p>
+      <p class="text-xs text-brand/70">thesmartlabsolutions.be</p>
+    </div>
+  </div>
+</footer>
+
+<!-- ===================== FLOATING CHAT BUTTON ===================== -->
+<!-- To connect a real chat: replace with Tawk.to or WhatsApp link -->
+<a
+  href="https://wa.me/32473316988"
+  target="_blank"
+  class="fixed bottom-6 right-6 w-14 h-14 bg-green-500 hover:bg-green-400 text-white rounded-full flex items-center justify-center shadow-2xl shadow-green-500/30 transition-all duration-200 hover:scale-110 cursor-pointer z-40"
+  aria-label="WhatsApp"
+>
+  <svg class="w-7 h-7" fill="currentColor" viewBox="0 0 24 24">
+    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
+  </svg>
+</a>
+
+</div><!-- end wrapper -->
+
+<!-- ===================== ALPINE DATA ===================== -->
+<script>
+  const texts = {
+    fr: {
+      nav_home: 'Accueil', nav_services: 'Services', nav_process: 'Notre Approche',
+      nav_testimonials: 'Témoignages', nav_faq: 'FAQ', nav_contact: 'Contact', nav_cta: 'Démarrer',
+      hero_badge: '🇧🇪 Agence digitale pour artisans belges',
+      hero_title: 'Plus de clients.<br><span class="text-gradient">Un agenda rempli.</span>',
+      hero_sub: 'On crée votre site web en 14 jours. Vos clients vous trouvent sur Google, réservent en ligne, et vous appelent. Vous, vous faites votre métier.',
+      hero_cta: 'Je veux plus de clients', hero_cta2: 'Voir comment ça marche', hero_live: 'Site actif',
+      stat_clients: 'Livraison garantie', stat_satisf: 'Satisfait ou retravaillé',
+      stat_days: 'Villes couvertes en Belgique', stat_support: 'Support inclus après livraison',
+      prob_tag: 'Le problème', prob_title: 'Pourquoi vos concurrents ont plus de clients que vous',
+      prob_sub: 'Ce n\'est pas une question de talent. C\'est une question de visibilité. Vos futurs clients cherchent en ligne — et ils ne vous trouvent pas.',
+      prob1_title: 'Introuvable sur Google', prob1_desc: 'Quand un client tape "plombier Liège" ou "coiffeuse Bruxelles", votre concurrent apparaît. Vous, non. Ce client est perdu.',
+      prob2_title: 'Pas le temps de s\'en occuper', prob2_desc: 'Entre vos chantiers, vos clients et votre admin, créer un site vous-même est impossible. Et sous-traiter au mauvais endroit coûte cher pour rien.',
+      prob3_title: 'Un site qui ne rapporte rien', prob3_desc: 'Vous avez peut-être déjà un site. Mais s\'il n\'est pas fait pour convertir et être trouvé, il ne sert à rien.',
+      sol_tag: 'La solution', sol_title: 'On s\'occupe de tout. <span class="text-gradient">Vous récoltez les clients.</span>',
+      sol_sub: 'De A à Z, en 14 jours. Vous faites votre métier — on construit votre vitrine digitale, on la rend visible, et on la fait travailler pour vous.',
+      sol_cta: 'Je veux mon site maintenant',
+      sol_f1_title: 'Site sur mesure', sol_f1_desc: 'Conçu pour votre métier, votre image, vos clients.',
+      sol_f2_title: 'Mobile-first', sol_f2_desc: 'Parfait sur smartphone, tablette et ordinateur.',
+      sol_f3_title: 'Livré en 14 jours', sol_f3_desc: 'Délai garanti, sans mauvaise surprise.',
+      sol_f4_title: 'Accompagnement', sol_f4_desc: 'On reste là après la livraison. Vous n\'êtes pas seul.',
+      serv_tag: 'Nos services', serv_title: 'Ce qu\'on fait concrètement pour vous',
+      serv_sub: 'Pas de forfait inutile. Pas de jargon. Juste ce qu\'il faut pour que votre téléphone sonne plus.',
+      serv_popular: '⭐ Le plus demandé',
+      serv_soon: '🔜 Bientôt disponible',
+      serv1_title: 'Site web professionnel', serv1_desc: 'Un site rapide, moderne et fait pour convertir. Vos visiteurs deviennent des clients — pas juste des curieux.',
+      serv1_f1: 'Design sur mesure', serv1_f2: '100% mobile & tablette', serv1_f3: 'Formulaire de contact', serv1_f4: 'SEO de base inclus',
+      serv2_title: 'Pack outils intégrés', serv2_desc: 'Prise de RDV en ligne, chat, newsletter. Votre site travaille pour vous même quand vous dormez.',
+      serv2_f1: 'Réservation en ligne 24h/24', serv2_f2: 'Chat en direct', serv2_f3: 'Newsletter intégrée', serv2_f4: 'Stats & analytics',
+      serv3_title: 'Visibilité locale (SEO)', serv3_desc: 'Bientôt : référencement local Google, Google My Business optimisé, mots-clés ciblés pour votre métier. Rejoignez la liste d\'attente.',
+      serv3_f1: 'Google My Business', serv3_f2: 'Mots-clés locaux ciblés', serv3_f3: 'Gestion des avis clients', serv3_f4: 'Rapport mensuel',
+      serv_cta: 'Je veux ça', serv_waitlist: 'Rejoindre la liste d\'attente',
+      proc_tag: 'Notre méthode', proc_title: 'Simple comme bonjour', proc_sub: 'Trois étapes. Pas de réunions inutiles. Pas de surprise.',
+      proc1_label: 'Analyze', proc1_title: 'On analyse votre situation', proc1_desc: 'On pose les bonnes questions : votre métier, vos clients, votre zone. 30 minutes suffisent.',
+      proc2_label: 'Create', proc2_title: 'On crée votre site', proc2_desc: 'On construit pendant que vous travaillez. Vous validez les étapes. Livré en 14 jours, garanti.',
+      proc3_label: 'Grow', proc3_title: 'Votre agenda se remplit', proc3_desc: 'Votre site est en ligne, visible sur Google. Les demandes arrivent. On reste disponible si besoin.',
+      test_tag: 'Témoignages', test_title: 'Ce que disent nos clients', test_sub: 'Des artisans qui avaient les mêmes doutes que vous — et qui ont franchi le pas.',
+      test1_quote: '« En moins de 3 semaines, j\'avais mon site et mes premiers rendez-vous en ligne. Je n\'aurais jamais cru que c\'était aussi simple. »',
+      test2_quote: '« Ils ont tout géré. Moi je continuais mes chantiers, le site était prêt à la date promise. Zéro prise de tête. »',
+      test3_quote: '« Maintenant mes clients me trouvent sur Google. Mon agenda est plein deux semaines à l\'avance. Ça valait vraiment le coup. »',
+      faq_tag: 'FAQ', faq_title: 'Questions Fréquentes', faq_sub: 'Tout ce que vous devez savoir avant de vous lancer.',
+      faq1_q: 'Combien de temps pour créer mon site web ?',
+      faq1_a: 'En moyenne, votre site est livré en 7 à 14 jours ouvrables. Nous travaillons vite sans sacrifier la qualité. Un planning clair est établi dès le début.',
+      faq2_q: 'Ai-je besoin de compétences techniques ?',
+      faq2_a: 'Aucune. Nous gérons tout de A à Z. Vous avez juste besoin de votre téléphone pour valider les étapes et nous envoyer vos photos/textes.',
+      faq3_q: 'Puis-je modifier mon site moi-même après livraison ?',
+      faq3_a: 'Oui. On vous livre un panneau de gestion simple pour changer vos textes, photos et tarifs sans toucher au code. Et si vous bloquez, on est là.',
+      faq4_q: 'Que se passe-t-il si je ne suis pas satisfait ?',
+      faq4_a: 'On retravaille jusqu\'à ce que vous soyez 100% satisfait. Votre réussite est notre priorité — pas une case à cocher.',
+      faq5_q: 'Est-ce que vous aidez aussi après la livraison ?',
+      faq5_a: 'Absolument. Support post-livraison inclus, et formules de maintenance disponibles pour garder votre site à jour et performant.',
+      contact_tag: 'Contact', contact_title: 'Démarrons Votre Projet', contact_sub: 'Répondez-nous dans les 24h. Premier échange gratuit et sans engagement.',
+      contact_name: 'Votre nom *', contact_trade: 'Votre métier *', contact_email: 'Email *',
+      contact_phone: 'Téléphone', contact_service: 'Service souhaité', contact_message: 'Votre message',
+      contact_service_placeholder: 'Choisissez un service...', contact_service_all: 'Tout le pack',
+      contact_send: 'Envoyer ma demande', contact_sending: 'Envoi en cours...', contact_error: 'Une erreur est survenue. Réessayez ou écrivez-nous directement par email.',
+      contact_consent_text: 'J\'accepte que mes données soient utilisées pour répondre à ma demande. Pour en savoir plus, consultez notre',
+      contact_consent_link: 'politique de confidentialité.',
+      contact_sent_title: 'Message envoyé !', contact_sent_sub: 'On vous répond dans les 24h. À très vite !',
+      contact_rdv_title: 'Préférez un appel ?', contact_rdv_sub: 'Réservez 30 min pour qu\'on discute de votre projet.',
+      contact_rdv_cta: 'Réserver un appel gratuit',
+      newsletter_title: 'Conseils Digitaux Gratuits', newsletter_sub: 'Nos tips chaque semaine pour développer votre activité.',
+      newsletter_placeholder: 'votre@email.com', newsletter_cta: "S'abonner",
+      newsletter_consent_text: 'J\'accepte de recevoir les conseils de Smart Lab Solutions par e-mail. Je peux me désinscrire à tout moment. Voir notre',
+      newsletter_consent_link: 'politique de confidentialité.',
+      newsletter_ok: '✅ Inscription confirmée ! À très vite dans votre boîte mail.',
+      newsletter_err: 'Erreur, veuillez réessayer.',
+      footer_desc: 'Votre partenaire digital de confiance pour artisans. Belgique.',
+      footer_links: 'Navigation', footer_legal_title: 'Légal',
+      footer_mentions: 'Mentions légales', footer_privacy: 'Confidentialité',
+      footer_copy: '© 2025 Smart Lab Solutions — Belgique. Tous droits réservés.',
+    },
+    en: {
+      nav_home: 'Home', nav_services: 'Services', nav_process: 'Our Approach',
+      nav_testimonials: 'Testimonials', nav_faq: 'FAQ', nav_contact: 'Contact', nav_cta: 'Get Started',
+      hero_badge: 'Digital Agency for Craftsmen',
+      hero_title: 'Your Digital Presence,<br><span class="text-gradient">Finally at Your Level</span>',
+      hero_sub: 'Smart Lab Solutions helps craftsmen stand out online. Professional website, integrated tools, measurable results.',
+      hero_cta: 'Start my project', hero_cta2: 'Explore our services', hero_live: 'Website live',
+      stat_clients: 'Craftsmen helped', stat_satisf: 'Client satisfaction',
+      stat_days: 'Delivery time', stat_support: 'Post-delivery support',
+      prob_tag: 'The Problem', prob_title: 'The Digital Challenge for Craftsmen',
+      prob_sub: 'Your craft is your priority — and that\'s fine. But without an online presence, potential clients go elsewhere.',
+      prob1_title: 'Invisible on Google', prob1_desc: 'Your competitors are there, you\'re not. Every day without a website is clients lost without you even knowing.',
+      prob2_title: 'Too complex', prob2_desc: 'Digital tools seem reserved for experts. Your time is precious — don\'t waste it.',
+      prob3_title: 'No concrete results', prob3_desc: 'Having a website is not enough. Without strategy, it\'s money thrown out the window.',
+      sol_tag: 'The Solution', sol_title: 'Smart Lab Solutions <span class="text-gradient">handles everything</span>',
+      sol_sub: 'From A to Z. You focus on your craft, we handle your digital presence. No jargon, no surprises — just results.',
+      sol_cta: 'Discover how',
+      sol_f1_title: 'Custom built', sol_f1_desc: 'Designed for your trade, your brand, your clients.',
+      sol_f2_title: 'Mobile-first', sol_f2_desc: 'Perfect on phone, tablet and desktop.',
+      sol_f3_title: 'Delivered in 14 days', sol_f3_desc: 'Guaranteed timeline, no surprises.',
+      sol_f4_title: 'Ongoing support', sol_f4_desc: 'We stay with you after delivery.',
+      serv_tag: 'Our services', serv_title: 'What we actually do for you',
+      serv_sub: 'No fluff. No jargon. Just what it takes to make your phone ring more.',
+      serv_popular: '⭐ Most requested',
+      serv_soon: '🔜 Coming soon',
+      serv1_title: 'Professional website', serv1_desc: 'Fast, modern, built to convert. Your visitors become clients — not just curious passers-by.',
+      serv1_f1: 'Custom design', serv1_f2: '100% mobile & tablet', serv1_f3: 'Contact form', serv1_f4: 'Basic SEO included',
+      serv2_title: 'Integrated tools pack', serv2_desc: 'Online booking, chat, newsletter. Your site works for you even while you sleep.',
+      serv2_f1: 'Online booking 24/7', serv2_f2: 'Live chat', serv2_f3: 'Integrated newsletter', serv2_f4: 'Analytics & stats',
+      serv3_title: 'Local visibility (SEO)', serv3_desc: 'Coming soon: local Google ranking, optimised Google My Business, targeted keywords for your trade. Join the waiting list.',
+      serv3_f1: 'Google My Business', serv3_f2: 'Targeted local keywords', serv3_f3: 'Review management', serv3_f4: 'Monthly report',
+      serv_cta: 'I want this', serv_waitlist: 'Join the waiting list',
+      proc_tag: 'Our method', proc_title: 'Straightforward', proc_sub: 'Three steps. No pointless meetings. No surprises.',
+      proc1_label: 'Analyze', proc1_title: 'We assess your situation', proc1_desc: 'We ask the right questions about your trade, clients and area. 30 minutes is enough.',
+      proc2_label: 'Create', proc2_title: 'We build your site', proc2_desc: 'We build while you work. You validate the steps. Delivered in 14 days, guaranteed.',
+      proc3_label: 'Grow', proc3_title: 'Your schedule fills up', proc3_desc: 'Your site goes live, shows up on Google. Enquiries come in. We stay available.',
+      test_tag: 'Testimonials', test_title: 'What our clients say', test_sub: 'Craftsmen who had the same doubts as you — and took the leap.',
+      test1_quote: '"In under 3 weeks, I had my site and my first online bookings. I never thought it could be this easy."',
+      test2_quote: '"They handled everything. I kept working my jobs, the site was ready on time. Zero hassle."',
+      test3_quote: '"My clients find me on Google now. My schedule is booked two weeks ahead. Totally worth it."',
+            faq_tag: 'FAQ', faq_title: 'Frequently Asked Questions', faq_sub: 'Everything you need to know before getting started.',
+      faq1_q: 'How long to create my website?',
+      faq1_a: 'On average, your site is delivered in 7 to 14 business days. We work fast without sacrificing quality. A clear timeline is set from day one.',
+      faq2_q: 'Do I need technical skills?',
+      faq2_a: 'None at all. We handle everything from A to Z. You just need your phone to validate steps and send us your photos and texts.',
+      faq3_q: 'Can I update my site myself after delivery?',
+      faq3_a: 'Yes. We deliver a simple admin panel to change your texts, photos and rates without touching the code. And if you get stuck, we\'re here.',
+      faq4_q: 'What if I\'m not satisfied?',
+      faq4_a: 'We rework until you\'re 100% satisfied. Your success is our priority — not a checkbox.',
+      faq5_q: 'Do you help after delivery?',
+      faq5_a: 'Absolutely. Post-delivery support included, plus maintenance plans available to keep your site up-to-date and performing.',
+      contact_tag: 'Contact', contact_title: "Let's Start Your Project", contact_sub: 'We reply within 24 hours. First chat is free and non-binding.',
+      contact_name: 'Your name *', contact_trade: 'Your trade *', contact_email: 'Email *',
+      contact_phone: 'Phone', contact_service: 'Service needed', contact_message: 'Your message',
+      contact_service_placeholder: 'Choose a service...', contact_service_all: 'Full pack',
+      contact_send: 'Send my request', contact_sending: 'Sending...', contact_error: 'An error occurred. Please try again or email us directly.',
+      contact_consent_text: 'I agree that my data may be used to respond to my request. For more information, see our',
+      contact_consent_link: 'privacy policy.',
+      contact_sent_title: 'Message sent!', contact_sent_sub: 'We\'ll reply within 24h. Talk soon!',
+      contact_rdv_title: 'Prefer a call?', contact_rdv_sub: 'Book 30 min to discuss your project.',
+      contact_rdv_cta: 'Book a free call',
+      newsletter_title: 'Free Digital Tips', newsletter_sub: 'Our weekly tips to grow your business online.',
+      newsletter_placeholder: 'your@email.com', newsletter_cta: 'Subscribe',
+      newsletter_consent_text: 'I agree to receive tips and communications from Smart Lab Solutions by email. I can unsubscribe at any time. See our',
+      newsletter_consent_link: 'privacy policy.',
+      newsletter_ok: '✅ Subscribed! You\'ll hear from us soon.',
+      newsletter_err: 'Something went wrong, please try again.',
+      footer_desc: 'Your trusted digital partner for craftsmen. Belgium.',
+      footer_links: 'Navigation', footer_legal_title: 'Legal',
+      footer_mentions: 'Legal notice', footer_privacy: 'Privacy policy',
+      footer_copy: '© 2025 Smart Lab Solutions — Belgium. All rights reserved.',
+    }
+  }
+
+  function sls() {
+    return {
+      darkMode: true,
+      lang: 'fr',
+      mobileOpen: false,
+      openFaq: null,
+      scrolled: false,
+      formSent: false,
+      formLoading: false,
+      formError: false,
+      formData: { name: '', trade: '', email: '', phone: '', service: '', message: '' },
+      formConsent: false,
+      newsletterEmail: '',
+      newsletterConsent: false,
+      newsletterSent: false,
+      newsletterLoading: false,
+      newsletterError: false,
+
+      navLinks: [
+        { id: 'accueil', key: 'nav_home' },
+        { id: 'services', key: 'nav_services' },
+        { id: 'processus', key: 'nav_process' },
+        { id: 'faq', key: 'nav_faq' },
+        { id: 'contact', key: 'nav_contact' },
+      ],
+
+      stats: [
+        { key: 'stat_clients', value: '14j' },
+        { key: 'stat_satisf', value: '100%' },
+        { key: 'stat_days', value: '3' },
+        { key: 'stat_support', value: '30j' },
+      ],
+
+      problems: [
+        { titleKey: 'prob1_title', descKey: 'prob1_desc', icon: 'M3.75 3.75v4.5m0-4.5h4.5m-4.5 0L9 9M3.75 20.25v-4.5m0 4.5h4.5m-4.5 0L9 15M20.25 3.75h-4.5m4.5 0v4.5m0-4.5L15 9m5.25 11.25h-4.5m4.5 0v-4.5m0 4.5L15 15' },
+        { titleKey: 'prob2_title', descKey: 'prob2_desc', icon: 'M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z' },
+        { titleKey: 'prob3_title', descKey: 'prob3_desc', icon: 'M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 0 1 3 19.875v-6.75ZM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V8.625ZM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V4.125Z' },
+      ],
+
+      solutionFeatures: [
+        { titleKey: 'sol_f1_title', descKey: 'sol_f1_desc', icon: 'M9.53 16.122a3 3 0 0 0-5.78 1.128 2.25 2.25 0 0 1-2.4 2.245 4.5 4.5 0 0 0 8.4-2.245c0-.399-.078-.78-.22-1.128Zm0 0a15.998 15.998 0 0 0 3.388-1.62m-5.043-.025a15.994 15.994 0 0 1 1.622-3.395m3.42 3.42a15.995 15.995 0 0 0 4.764-4.648l3.876-5.814a1.151 1.151 0 0 0-1.597-1.597L14.146 6.32a15.996 15.996 0 0 0-4.649 4.763m3.42 3.42a6.776 6.776 0 0 0-3.42-3.42' },
+        { titleKey: 'sol_f2_title', descKey: 'sol_f2_desc', icon: 'M10.5 1.5H8.25A2.25 2.25 0 0 0 6 3.75v16.5a2.25 2.25 0 0 0 2.25 2.25h7.5A2.25 2.25 0 0 0 18 20.25V3.75a2.25 2.25 0 0 0-2.25-2.25H13.5m-3 0V3h3V1.5m-3 0h3m-3 8.25h3' },
+        { titleKey: 'sol_f3_title', descKey: 'sol_f3_desc', icon: 'M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z' },
+        { titleKey: 'sol_f4_title', descKey: 'sol_f4_desc', icon: 'M18 18.72a9.094 9.094 0 0 0 3.741-.479 3 3 0 0 0-4.682-2.72m.94 3.198.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0 1 12 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 0 1 6 18.719m12 0a5.971 5.971 0 0 0-.941-3.197m0 0A5.995 5.995 0 0 0 12 12.75a5.995 5.995 0 0 0-5.058 2.772m0 0a3 3 0 0 0-4.681 2.72 8.986 8.986 0 0 0 3.74.477m.94-3.197a5.971 5.971 0 0 0-.94 3.197M15 6.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Zm6 3a2.25 2.25 0 1 1-4.5 0 2.25 2.25 0 0 1 4.5 0Zm-13.5 0a2.25 2.25 0 1 1-4.5 0 2.25 2.25 0 0 1 4.5 0Z' },
+      ],
+
+      services: [
+        {
+          icon: 'M6.115 5.19a7.658 7.658 0 0 0-1.85 4.31A8.014 8.014 0 0 0 4 11.5c0 2.07.79 3.96 2.08 5.39M7.5 16.5a7.5 7.5 0 1 1 9-11.77M6.5 8h11M6.5 12h11M6.5 16h6',
+          titleKey: 'serv1_title', descKey: 'serv1_desc',
+          features: ['serv1_f1', 'serv1_f2', 'serv1_f3', 'serv1_f4']
+        },
+        {
+          icon: 'M11.42 15.17 17.25 21A2.652 2.652 0 0 0 21 17.25l-5.877-5.877M11.42 15.17l2.496-3.03c.317-.384.74-.626 1.208-.766M11.42 15.17l-4.655 5.653a2.548 2.548 0 1 1-3.586-3.586l6.837-5.63m5.108-.233c.55-.164 1.163-.188 1.743-.14a4.5 4.5 0 0 0 4.486-6.336l-3.276 3.277a3.004 3.004 0 0 1-2.25-2.25l3.276-3.276a4.5 4.5 0 0 0-6.336 4.486c.091 1.076-.071 2.264-.904 2.95l-.102.085m-1.745 1.437L5.909 7.5H4.5L2.25 3.75l1.5-1.5L7.5 4.5v1.409l4.26 4.26m-1.745 1.437 1.745-1.437m6.615 8.206L15.75 15.75M4.867 19.125h.008v.008h-.008v-.008Z',
+          titleKey: 'serv2_title', descKey: 'serv2_desc',
+          features: ['serv2_f1', 'serv2_f2', 'serv2_f3', 'serv2_f4']
+        },
+        {
+          icon: 'M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0ZM19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z',
+          titleKey: 'serv3_title', descKey: 'serv3_desc',
+          features: ['serv3_f1', 'serv3_f2', 'serv3_f3', 'serv3_f4']
+        },
+      ],
+
+      process: [
+        { labelKey: 'proc1_label', titleKey: 'proc1_title', descKey: 'proc1_desc', icon: 'M21 21l-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z' },
+        { labelKey: 'proc2_label', titleKey: 'proc2_title', descKey: 'proc2_desc', icon: 'M6.827 6.175A2.31 2.31 0 0 1 5.186 7.23c-.38.054-.757.112-1.134.175C2.999 7.58 2.25 8.507 2.25 9.574V18a2.25 2.25 0 0 0 2.25 2.25h15A2.25 2.25 0 0 0 21.75 18V9.574c0-1.067-.75-1.994-1.802-2.169a47.865 47.865 0 0 0-1.134-.175 2.31 2.31 0 0 1-1.64-1.055l-.822-1.316a2.192 2.192 0 0 0-1.736-1.039 48.774 48.774 0 0 0-5.232 0 2.192 2.192 0 0 0-1.736 1.039l-.821 1.316Z' },
+        { labelKey: 'proc3_label', titleKey: 'proc3_title', descKey: 'proc3_desc', icon: 'M2.25 18 9 11.25l4.306 4.306a11.95 11.95 0 0 1 5.814-5.518l2.74-1.22m0 0-5.94-2.281m5.94 2.28-2.28 5.941' },
+      ],
+
+      testimonials: [
+        { quoteKey: 'test1_quote', name: 'Marc D.', trade: 'Plombier — Liège', initials: 'MD' },
+        { quoteKey: 'test2_quote', name: 'Sophie V.', trade: 'Électricienne — Bruxelles', initials: 'SV' },
+        { quoteKey: 'test3_quote', name: 'Thomas L.', trade: 'Menuisier — Namur', initials: 'TL' },
+      ],
+
+      faqs: [
+        { qKey: 'faq1_q', aKey: 'faq1_a' },
+        { qKey: 'faq2_q', aKey: 'faq2_a' },
+        { qKey: 'faq3_q', aKey: 'faq3_a' },
+        { qKey: 'faq4_q', aKey: 'faq4_a' },
+        { qKey: 'faq5_q', aKey: 'faq5_a' },
+      ],
+
+      t(key) { return texts[this.lang][key] || key; },
+
+      toggleDark() {
+        this.darkMode = !this.darkMode;
+        localStorage.setItem('sls_dark', this.darkMode);
+      },
+
+      toggleLang() {
+        this.lang = this.lang === 'fr' ? 'en' : 'fr';
+        localStorage.setItem('sls_lang', this.lang);
+        document.documentElement.lang = this.lang;
+      },
+
+      async submitForm() {
+        this.formLoading = true;
+        this.formError = false;
+        try {
+          const res = await fetch('https://formspree.io/f/xyklvyda', {
+            method: 'POST',
+            headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              name: this.formData.name,
+              metier: this.formData.trade,
+              email: this.formData.email,
+              telephone: this.formData.phone,
+              service: this.formData.service,
+              message: this.formData.message,
+            })
+          });
+          if (res.ok) {
+            this.formSent = true;
+          } else {
+            this.formError = true;
+          }
+        } catch {
+          this.formError = true;
+        } finally {
+          this.formLoading = false;
+        }
+      },
+
+      async subscribeNewsletter() {
+        if (!this.newsletterEmail || !this.newsletterConsent) return;
+        this.newsletterLoading = true;
+        this.newsletterError = false;
+        try {
+          const res = await fetch('/.netlify/functions/subscribe', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email: this.newsletterEmail })
+          });
+          if (res.ok) { this.newsletterSent = true; } else { this.newsletterError = true; }
+        } catch { this.newsletterError = true; }
+        finally { this.newsletterLoading = false; }
+      },
+
+      initApp() {
+        // Restore preferences
+        const savedDark = localStorage.getItem('sls_dark');
+        if (savedDark !== null) this.darkMode = savedDark === 'true';
+        const savedLang = localStorage.getItem('sls_lang');
+        if (savedLang) this.lang = savedLang;
+
+        // Scroll detection for navbar
+        window.addEventListener('scroll', () => {
+          this.scrolled = window.scrollY > 20;
+        });
+
+        // Intersection Observer for reveal animations
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach(e => {
+            if (e.isIntersecting) {
+              e.target.classList.add('visible');
+              observer.unobserve(e.target);
+            }
+          });
+        }, { threshold: 0.12 });
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+      }
+    }
+  }
+</script>
+
+</body>
+</html>
