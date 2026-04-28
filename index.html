@@ -1071,23 +1071,18 @@
         this.formLoading = true;
         this.formError = false;
         try {
-          const res = await fetch('https://formspree.io/f/xyklvyda', {
-            method: 'POST',
-            headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-              name: this.formData.name,
-              metier: this.formData.trade,
-              email: this.formData.email,
-              telephone: this.formData.phone,
-              service: this.formData.service,
-              message: this.formData.message,
-            })
+          const params = new URLSearchParams({
+            nom:       this.formData.name,
+            metier:    this.formData.trade,
+            email:     this.formData.email,
+            telephone: this.formData.phone,
+            service:   this.formData.service,
+            message:   this.formData.message,
           });
-          if (res.ok) {
-            this.formSent = true;
-          } else {
-            this.formError = true;
-          }
+          const url = 'https://script.google.com/macros/s/AKfycbzZhjThLnaiPWyU4VK5q4U8pBPrJiSDUqoQDk48qS6oDQPofE7G0ZwiQcXS86oZpuWiEw/exec?' + params.toString();
+          await fetch(url, { method: 'GET', mode: 'no-cors' });
+          // no-cors ne permet pas de lire la réponse — on considère l'envoi réussi
+          this.formSent = true;
         } catch {
           this.formError = true;
         } finally {
